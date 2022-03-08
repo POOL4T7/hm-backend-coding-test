@@ -8,7 +8,10 @@
   },
   "scripts": {
     "test": "mocha tests",
-    "start": "node index.js"
+    "coverage": "nyc --reporter=lcov --reporter=text npm run test",
+    "start": "node index.js",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [
     "Hodomojo"
@@ -21,7 +24,18 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-plugin-import": "^2.25.4",
     "mocha": "^6.1.4",
-    "supertest": "^4.0.2"
-  }
+    "nyc": "^15.1.0",
+    "pre-push": "^0.1.1",
+    "supertest": "^4.0.2",
+    "winston": "^3.6.0"
+  },
+  "pre-push": [
+    "test",
+    "coverage",
+    "lint:check",
+    "start"
+  ]
 }

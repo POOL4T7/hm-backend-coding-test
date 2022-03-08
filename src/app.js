@@ -5,6 +5,7 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const logger = require('../logger/index')
 
 module.exports = (db) => {
     app.get('/health', (req, res) => res.send('Healthy'));
