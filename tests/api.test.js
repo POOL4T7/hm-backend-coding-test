@@ -40,11 +40,21 @@ describe('API tests', () => {
     });
 
     describe('GET /rides/:id', () => {
-        it('should return array of riders', (done) => {
-            request(app)
-                .get('/rides/1')
-                .expect('Content-Type', 'application/json; charset=utf-8')
-                .expect(200, done);
-        });
+        describe('When correct riderID passed', () => {
+            it('should return array of riders', (done) => {
+                request(app)
+                    .get('/rides/1')
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(200, done);
+            });
+        })
+        describe('When incorrect riderID passed', () => {
+            it('should return array of riders', (done) => {
+                request(app)
+                    .get('/rides/abc')
+                    .expect('Content-Type', 'application/json; charset=utf-8')
+                    .expect(200, done);
+            });
+        })
     });
 });
