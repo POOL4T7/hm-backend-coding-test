@@ -29,4 +29,22 @@ describe('API tests', () => {
                 .expect(200, done);
         });
     });
+
+    describe('GET /rides', () => {
+        it('should return array of riders', (done) => {
+            request(app)
+                .get('/rides')
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(200, done);
+        });
+    });
+
+    describe('GET /rides/:id', () => {
+        it('should return array of riders', (done) => {
+            request(app)
+                .get('/rides/1')
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(200, done);
+        });
+    });
 });
