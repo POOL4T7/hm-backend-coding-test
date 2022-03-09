@@ -5,7 +5,7 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const logger = require('../logger/index')
+// const logger = require('../logger/index')
 
 module.exports = (db) => {
     app.get('/health', (req, res) => res.send('Healthy'));
@@ -55,8 +55,8 @@ module.exports = (db) => {
         }
 
         var values = [req.body.start_lat, req.body.start_long, req.body.end_lat, req.body.end_long, req.body.rider_name, req.body.driver_name, req.body.driver_vehicle];
-        
-        const result = db.run('INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)', values, function (err) {
+
+        db.run('INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)', values, function (err) {
             if (err) {
                 return res.send({
                     error_code: 'SERVER_ERROR',
@@ -77,8 +77,11 @@ module.exports = (db) => {
         });
     });
 
-    app.get('/rides', (req, res) => {
-        db.all('SELECT * FROM Rides', function (err, rows) {
+    app.get('/rides', async (req, res) => {
+        const page = req.query.page || 1;
+        const limit = req.query.limit || 2;
+        var skip = limit * (page - 1);
+        db.all(`SELECT * FROM Rides LIMIT ${limit} OFFSET ${skip}`, function (err, rows) {
             if (err) {
                 return res.send({
                     error_code: 'SERVER_ERROR',

@@ -1,14 +1,19 @@
 'use strict';
 
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 const port = 8010;
 
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
+// const bodyParser = require('body-parser');
+// const jsonParser = bodyParser.json();
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(':memory:');
+const db = new sqlite3.Database(':memory:', (err) => {
+    if (err) {
+        console.log('db err', err.message)
+    }
+    console.log('db connected')
+});
 
 const buildSchemas = require('./src/schemas');
 

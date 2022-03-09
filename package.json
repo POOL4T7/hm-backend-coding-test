@@ -10,6 +10,7 @@
     "test": "mocha tests",
     "coverage": "nyc --reporter=lcov --reporter=text npm run test",
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix ."
   },
@@ -27,6 +28,7 @@
     "eslint": "^8.10.0",
     "eslint-plugin-import": "^2.25.4",
     "mocha": "^6.1.4",
+    "nodemon": "^2.0.15",
     "nyc": "^15.1.0",
     "pre-push": "^0.1.1",
     "supertest": "^4.0.2",
